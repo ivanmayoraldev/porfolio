@@ -1,0 +1,10 @@
+# Redirects for SEO and user experience
+# Redirect www to non-www
+https://www.ivanmayoral.com/* https://ivanmayoral.com/:splat 301!
+
+# Redirect old URLs if any
+/old-portfolio/* / 301
+/portfolio/* / 301
+
+# Handle 404s
+/* /index.html 200 

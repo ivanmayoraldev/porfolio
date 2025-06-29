@@ -11,11 +11,34 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 5173,
     open: true,
+    host: true,
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['lucide-react', '@radix-ui/react-slot', '@radix-ui/react-switch'],
+          animations: ['react-awesome-reveal'],
+        },
+      },
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'lucide-react'],
+  },
+  css: {
+    devSourcemap: true,
   },
 }) 

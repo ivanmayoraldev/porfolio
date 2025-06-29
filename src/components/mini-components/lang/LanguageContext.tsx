@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { Language, translations } from '@/lib/translations'
+import { Language, translations } from './translations'
 
 interface LanguageContextType {
   language: Language
@@ -25,12 +25,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [language, setLanguage] = useState<Language>('es')
 
   useEffect(() => {
-    // Load saved language from localStorage
     const savedLanguage = localStorage.getItem('language') as Language
     if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
       setLanguage(savedLanguage)
     } else {
-      // Default to Spanish
       setLanguage('es')
     }
   }, [])

@@ -1,7 +1,4 @@
-"use client"
-
-import { useEffect, useRef, useState } from "react"
-
+import { useEffect, useRef } from "react"
 
 interface ParticlesProps {
   className?: string
@@ -11,7 +8,7 @@ interface ParticlesProps {
   refresh?: boolean
 }
 
-export default function Particles({
+export default function ParticlesLight({
   className = "",
   quantity = 30,
   staticity = 50,
@@ -25,49 +22,28 @@ export default function Particles({
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 })
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
-  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d")
     }
-    
-    // Check initial theme
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains('dark')
-      setIsDarkMode(isDark)
-    }
-    
-    checkTheme()
-    
-    // Listen for theme changes
-    const observer = new MutationObserver(checkTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
-    
     initCanvas()
     animate()
     window.addEventListener("resize", initCanvas)
 
     return () => {
       window.removeEventListener("resize", initCanvas)
-      observer.disconnect()
     }
   }, [])
 
-
   useEffect(() => {
     initCanvas()
-  }, [refresh, isDarkMode])
+  }, [refresh])
 
   const initCanvas = () => {
     resizeCanvas()
     drawParticles()
   }
-
-  
 
   interface Circle {
     x: number
@@ -126,10 +102,7 @@ export default function Particles({
       context.current.translate(translateX, translateY)
       context.current.beginPath()
       context.current.arc(x, y, size, 0, 2 * Math.PI)
-      
-      // Set color based on theme
-      const color = isDarkMode ? '255, 255, 255' : '75, 85, 99' // Using gray-600 for light mode
-      context.current.fillStyle = `rgba(${color}, ${alpha})`
+      context.current.fillStyle = `rgba(0, 0, 0, ${alpha})`
       context.current.fill()
       context.current.setTransform(dpr, 0, 0, dpr, 0, 0)
 
@@ -174,12 +147,11 @@ export default function Particles({
   const animate = () => {
     clearContext()
     circles.current.forEach((circle: Circle, i: number) => {
-      // Handle the alpha value
       const edge = [
-        circle.x + circle.translateX - circle.size, // distance from left edge
-        canvasSize.current.w - circle.x - circle.translateX - circle.size, // distance from right edge
-        circle.y + circle.translateY - circle.size, // distance from top edge
-        canvasSize.current.h - circle.y - circle.translateY - circle.size, // distance from bottom edge
+        circle.x + circle.translateX - circle.size,
+        canvasSize.current.w - circle.x - circle.translateX - circle.size, 
+        circle.y + circle.translateY - circle.size,
+        canvasSize.current.h - circle.y - circle.translateY - circle.size,
       ]
       const closestEdge = edge.reduce((a, b) => Math.min(a, b))
       const remapClosestEdge = parseFloat(
@@ -201,19 +173,15 @@ export default function Particles({
       circle.translateY +=
         (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
         ease
-      // circle gets out of the canvas
       if (
         circle.x < -circle.size ||
         circle.x > canvasSize.current.w + circle.size ||
         circle.y < -circle.size ||
         circle.y > canvasSize.current.h + circle.size
       ) {
-        // remove the circle from the array
         circles.current.splice(i, 1)
-        // create a new circle
         const newCircle = circleParams()
         drawCircle(newCircle)
-        // update the circle position
       } else {
         drawCircle(
           {
@@ -236,4 +204,4 @@ export default function Particles({
       <canvas ref={canvasRef} />
     </div>
   )
-}
+} 

@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail} from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/components/mini-components/lang/LanguageContext";
 
 export default function SocialLinks() {
   const { t, language } = useLanguage();
@@ -17,7 +17,7 @@ export default function SocialLinks() {
 
   return (
     <div className="flex gap-2 sm:gap-3">
-      {socialLinks.map((link, index) => {
+      {socialLinks.map((link: any, index: number) => {
         const commonClasses = `inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
           link.text === "CV"
             ? "bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white shadow-lg hover:shadow-xl"

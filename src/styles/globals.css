@@ -6,15 +6,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
