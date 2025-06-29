@@ -1,5 +1,3 @@
-import React from 'react';
-
 const EducationLoader = () => {
   return (
     <div className="relative w-full h-64 flex items-center justify-center">
@@ -35,47 +33,49 @@ const EducationLoader = () => {
       </div>
 
       {/* Animación personalizada para la roca */}
-      <style jsx>{`
-        @keyframes rollingRock {
-          0% {
-            transform: translate(0, 0) rotate(-45deg);
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes rollingRock {
+            0% {
+              transform: translate(0, 0) rotate(-45deg);
+            }
+            10% {
+              transform: translate(0, -10%) rotate(0deg);
+            }
+            20% {
+              transform: translate(0, -20%) rotate(45deg);
+            }
+            30% {
+              transform: translate(0, -30%) rotate(90deg);
+            }
+            40% {
+              transform: translate(0, -40%) rotate(135deg);
+            }
+            50% {
+              transform: translate(0, -50%) rotate(180deg);
+            }
+            60% {
+              transform: translate(0, -60%) rotate(225deg);
+            }
+            70% {
+              transform: translate(0, -70%) rotate(270deg);
+            }
+            80% {
+              transform: translate(0, -80%) rotate(315deg);
+            }
+            90% {
+              transform: translate(0, -90%) rotate(360deg);
+            }
+            100% {
+              transform: translate(0, 0) rotate(-45deg);
+            }
           }
-          10% {
-            transform: translate(0, -10%) rotate(0deg);
+          
+          .animate-rolling-rock {
+            animation: rollingRock 3s cubic-bezier(.79, 0, .47, .97) infinite;
           }
-          20% {
-            transform: translate(0, -20%) rotate(45deg);
-          }
-          30% {
-            transform: translate(0, -30%) rotate(90deg);
-          }
-          40% {
-            transform: translate(0, -40%) rotate(135deg);
-          }
-          50% {
-            transform: translate(0, -50%) rotate(180deg);
-          }
-          60% {
-            transform: translate(0, -60%) rotate(225deg);
-          }
-          70% {
-            transform: translate(0, -70%) rotate(270deg);
-          }
-          80% {
-            transform: translate(0, -80%) rotate(315deg);
-          }
-          90% {
-            transform: translate(0, -90%) rotate(360deg);
-          }
-          100% {
-            transform: translate(0, 0) rotate(-45deg);
-          }
-        }
-        
-        .animate-rolling-rock {
-          animation: rollingRock 3s cubic-bezier(.79, 0, .47, .97) infinite;
-        }
-      `}</style>
+        `
+      }} />
     </div>
   );
 };
