@@ -16,7 +16,6 @@ const EducationStepper = () => {
   const { language } = useLanguage();
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
 
-  // Helper function to access nested translations
   const getTranslation = (path: string) => {
     const keys = path.split('.');
     let value: any = translations[language];
@@ -69,7 +68,7 @@ const EducationStepper = () => {
       title: getTranslation('educationStepper.engineering'),
       description: getTranslation('educationStepper.engineeringDesc'),
       status: "in process",
-      time: "2026-2028",
+      time: "2026",
       icon: "🚀",
       details: getTranslation('educationStepper.engineeringDetails'),
       projects: [
@@ -101,7 +100,6 @@ const EducationStepper = () => {
         <div className="space-y-0">
           {steps.map((step, index) => (
             <div key={step.id} className="relative">
-              {/* Paso clickeable */}
               <div 
                 className="flex relative p-3 sm:p-4 lg:p-6 cursor-pointer hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 transition-colors rounded-lg"
                 onClick={() => toggleStep(step.id)}
@@ -199,7 +197,6 @@ const EducationStepper = () => {
                       </ul>
                     </div>
 
-                    {/* Proyectos con estilo de ProjectItem */}
                     <div>
                       <h4 className="font-medium text-neutral-800 dark:text-neutral-300 mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide">
                         {getTranslation('educationStepper.projectsCompleted')}
