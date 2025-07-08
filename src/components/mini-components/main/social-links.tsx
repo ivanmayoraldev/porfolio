@@ -5,7 +5,7 @@ export default function SocialLinks() {
   const socialLinks = [
     { 
       icon: "", 
-      text: 'openToWork',
+      text: 'Disponible',
       isOpenToWork: true
     },
     { url: "https://github.com/ivanmayoraldev", icon: Github, text: "GitHub" },

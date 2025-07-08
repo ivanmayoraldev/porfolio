@@ -12,13 +12,13 @@ interface WorkItemInfoProps {
 export default function WorkItemInfo({
   time,
   technologies,
-  location = "Madrid, Spain",
-  description = "Led creative direction and production for a successful YouTube channel with over 3 years of experience in video editing, motion graphics, and visual effects. Managed social media presence, designed thumbnails and banners, and coordinated content strategy. Developed expertise in Adobe Creative Suite, DaVinci Resolve, and After Effects while building a strong portfolio of digital content.",
+  location = "Madrid, España",
+  description = "Dirigí la dirección creativa y la producción de un canal exitoso de YouTube, con más de 3 años de experiencia en edición de video, gráficos en movimiento y efectos visuales. Gestioné la presencia en redes sociales, diseñé miniaturas y banners, y coordiné la estrategia de contenido. Desarrollé experiencia en Adobe Creative Suite, DaVinci Resolve y After Effects, mientras construía un sólido portafolio de contenido digital.",
   achievements = [
-    "Managed successful YouTube channel with consistent content strategy",
-    "Created high-quality thumbnails and banners for video content",
-    "Developed expertise in video editing and motion graphics",
-    "Coordinated social media presence across multiple platforms",
+    "Gestioné un canal exitoso de YouTube con una estrategia de contenido consistente",
+    "Creé miniaturas y banners de alta calidad para contenido en video",
+    "Desarrollé experiencia en edición de video y gráficos en movimiento",
+    "Coordiné la presencia en redes sociales a través de múltiples plataformas",
   ],
 }: WorkItemInfoProps) {
   return (
@@ -27,7 +27,7 @@ export default function WorkItemInfo({
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-2">
             <h3 className="text-lg font-semibold leading-tight text-neutral-800 dark:text-neutral-200 sm:text-xl">
-              VFX & GFX Creator | Channel Manager
+              Editor VFX | Channel Manager
             </h3>
             <ExternalLink className="h-4 w-4 flex-shrink-0 text-neutral-400" />
           </div>

@@ -81,7 +81,7 @@ export default function ProjectItem({
         </div>
       </div>
 
-      <div className="mt-1 flex gap-2">
+      <div className="mt-3 flex gap-2">
         {githubLink && (
           <a
             href={githubLink}

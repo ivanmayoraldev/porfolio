@@ -3,9 +3,9 @@ import SocialLinks from "../main/social-links";
 const profData = {
   img: "/logo-web.png",
   name: "Iván Mayoral Capel",
-  subtitle: "Desarrollador FullStack - UI/UX & VFX Creator",
+  subtitle: "Full-Stack Developer - UX/UI & VFX",
   description:
-    "Diseñando interfaces intuitivas y desarrollando soluciones centradas en el usuario, combinando creatividad y experiencia técnica para crear experiencias digitales fluidas.",
+    "Developer recién graduado de DAW, en búsqueda continua de mejora de conocimientos con DAM y en un futuro Ingeniería Informática como Desarrollador de Software. Apasionado por el diseño y buenas prácticas en mis proyectos tanto en el ámbito de developer como de especialista VFX.",
   location: "Madrid, Spain",
   contactEmail: "ivanmayoral.dev@gmail.com",
 };
@@ -20,7 +20,7 @@ export default function ProfileInfo() {
               {profData.name}
             </h1>
           </div>
-          <span className="mb-2 mt-2 block text-lg font-bold text-neutral-900 dark:text-neutral-100 sm:mb-3 sm:text-xl">
+          <span className="mb-2 mt-2 block text-lg font-bold text-neutral-900 dark:text-yellow-400 sm:mb-3 sm:text-xl">
             {profData.subtitle}
           </span>
           <p className="max-w-md text-base leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-lg">
