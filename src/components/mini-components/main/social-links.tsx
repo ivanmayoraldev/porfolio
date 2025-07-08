@@ -1,18 +1,16 @@
 import { Github, Linkedin, Mail} from "lucide-react";
-import { useLanguage } from "@/components/mini-components/lang/LanguageContext";
 
 export default function SocialLinks() {
-  const { t, language } = useLanguage();
 
   const socialLinks = [
     { 
       icon: "", 
-      text: t('openToWork'),
+      text: 'openToWork',
       isOpenToWork: true
     },
     { url: "https://github.com/ivanmayoraldev", icon: Github, text: "GitHub" },
-    { url: "https://www.linkedin.com/in/iván-mayoral-8288a1331/", icon: Linkedin, text: "LinkedIn" },
-    { url: language === 'es' ? "/cv-es.pdf" : "/cv-en.pdf", icon: Mail, text: "CV" },
+    { url: "https://www.linkedin.com/in/ivan-mayoral/", icon: Linkedin, text: "LinkedIn" },
+    { url: "/cv-es.pdf", icon: Mail, text: "CV" },
   ];
 
   return (

@@ -1,9 +1,6 @@
 import { Github, ScreenShare } from "lucide-react";
-import { useLanguage } from "@/components/mini-components/lang/LanguageContext";
-import { translations } from "@/components/mini-components/lang/translations";
 
 interface ProjectItemProps {
-  projectKey?: string;
   title: string;
   description: string;
   technologies: string[];
@@ -13,7 +10,6 @@ interface ProjectItemProps {
 }
 
 export default function ProjectItem({
-  projectKey,
   title,
   description,
   technologies,
@@ -21,23 +17,18 @@ export default function ProjectItem({
   githubLink,
   previewLink,
 }: ProjectItemProps) {
-  const { language } = useLanguage();
-  
-  const projectTranslations = projectKey ? translations[language].projects[projectKey] : null;
-  const displayTitle = projectTranslations?.title || title;
-  const displayDescription = projectTranslations?.description || description;
-
-  const isVideo = video.endsWith('.mp4') || video.endsWith('.webm') || video.endsWith('.ogg');
-  const isYouTube = video.startsWith('youtube://');
+  const isVideo = video.endsWith(".mp4") || video.endsWith(".webm") || video.endsWith(".ogg");
+  const isYouTube = video.startsWith("youtube://");
+  const youTubeId = isYouTube ? video.replace("youtube://", "") : "";
 
   return (
     <div className="flex flex-col gap-3 sm:gap-4 rounded-xl p-3 sm:p-4 duration-100 hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-600">
       <div className="flex flex-col">
         <h3 className="text-base sm:text-lg font-semibold text-neutral-800 dark:text-neutral-300 py-2">
-          {displayTitle}
+          {title}
         </h3>
         <p className="mb-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 py-2 leading-relaxed">
-          {displayDescription}
+          {description}
         </p>
         <div className="mb-2 flex gap-1 py-2 flex-wrap">
           {technologies.map((tech) => (
@@ -49,6 +40,7 @@ export default function ProjectItem({
             </span>
           ))}
         </div>
+
         <div className="relative h-32 sm:h-40 w-full overflow-hidden rounded-xl">
           {isVideo ? (
             <video
@@ -59,38 +51,36 @@ export default function ProjectItem({
               playsInline
             >
               <source src={video} type="video/mp4" />
-              Your browser does not support the video tag.
+              Tu navegador no soporta el tag de video.
             </video>
           ) : isYouTube ? (
             <iframe
               className="rounded-xl object-cover object-top w-full h-full"
-              src={`https://www.youtube.com/embed/${video.replace('youtube://', '')}?autoplay=1&mute=1&loop=1&playlist=${video.replace('youtube://', '')}&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3&fs=0&cc_load_policy=0&playsinline=1&vq=hd720&wmode=transparent&color=white&theme=dark&autohide=1&showsearch=0&showinfo=0&iv_load_policy=3&modestbranding=1&disablekb=1&fs=0&cc_load_policy=0&playsinline=1&origin=${window.location.origin}`}
+              src={`https://www.youtube.com/embed/${youTubeId}?autoplay=1&mute=1&loop=1&playlist=${youTubeId}&controls=0&rel=0&modestbranding=1&playsinline=1`}
               title="YouTube video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '100%',
-                transform: 'scale(1.2)',
-                transformOrigin: 'center center',
-                border: 'none',
-                outline: 'none'
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%",
+                transform: "scale(1.2)",
+                transformOrigin: "center center",
               }}
             />
           ) : (
             <img
               className="rounded-xl object-cover object-top w-full h-full"
               src={video}
-              alt={`${displayTitle} image`}
+              alt={`${title} image`}
             />
           )}
         </div>
       </div>
-      
+
       <div className="mt-1 flex gap-2">
         {githubLink && (
           <a
@@ -98,6 +88,7 @@ export default function ProjectItem({
             className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
             target="_blank"
             aria-label="Link to Github repository"
+            rel="noopener noreferrer"
           >
             <Github className="size-4" />
           </a>
@@ -108,6 +99,7 @@ export default function ProjectItem({
             className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
             target="_blank"
             aria-label="Link to live preview"
+            rel="noopener noreferrer"
           >
             <ScreenShare className="size-4" />
           </a>
@@ -115,4 +107,4 @@ export default function ProjectItem({
       </div>
     </div>
   );
-} 
+}

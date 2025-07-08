@@ -1,6 +1,5 @@
 import Card from "@/components/mini-components/ui/card"
 import { Fade } from "react-awesome-reveal"
-import { useLanguage } from "@/components/mini-components/lang/LanguageContext"
 import WorkItemInfo from "./mini-components/workExperience/work-item-info"
 
 const workData = [
@@ -15,18 +14,16 @@ const workData = [
       "Premiere Pro",
       "Photoshop",
       "Social Media Management",
-    ],
-    workKey: "peereira7"
+    ]
   },
 ]
 
 export default function WorkExperience() {
-  const { t } = useLanguage()
 
   return (
     <section className="mx-auto max-w-7xl p-4 text-neutral-800 dark:text-neutral-100 sm:p-8">
       <h1 className="mb-8 text-center text-5xl font-bold sm:text-5xl lg:text-5xl">
-        {t('workExperience')}
+        Experiencia Laboral
       </h1>
       <Card>
         <Fade>
@@ -36,7 +33,6 @@ export default function WorkExperience() {
                 key={work.id}
                 time={work.time}
                 technologies={work.technologies}
-                workKey={work.workKey}
               />
             ))}
           </div>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
-import LanguageSelector from "./mini-components/header/language-selector"
-import ThemeSwitch from "./mini-components/header/theme-switch"
+import ThemeSwitch from "@/components/mini-components/header/theme-switch"
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -22,12 +21,6 @@ export default function Header() {
         : "bg-transparent"
     }`}>
       <div className="mx-auto max-w-7xl flex items-center justify-between gap-4 p-4 text-sm font-medium text-neutral-600 dark:text-neutral-300 sm:p-8">
-      <div className="min-w-0 flex-grow overflow-hidden">
-          <div className="flex w-full justify-center lg:justify-start">
-          <LanguageSelector />
-          </div>
-        </div>
-        
         <ThemeSwitch />
       </div>
     </div>

@@ -1,5 +1,5 @@
-import ProfileInfo from "./mini-components/main/profile-info"
-import TechSlider from "./mini-components/main/tech-slider"
+import ProfileInfo from "@/components/mini-components/main/profile-info"
+import TechSlider from "@/components/mini-components/main/tech-slider"
 
 export default function HeroSection() {
   return (

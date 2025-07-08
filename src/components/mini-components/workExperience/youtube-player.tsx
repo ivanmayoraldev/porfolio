@@ -1,6 +1,5 @@
 import { Volume2, VolumeX } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
-import { useLanguage } from "@/components/mini-components/lang/LanguageContext"
 
 declare global {
   interface Window {
@@ -16,7 +15,6 @@ interface YouTubePlayerProps {
 }
 
 export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
-  const { t } = useLanguage();
   const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(0);
   const [playerReady, setPlayerReady] = useState(false);
@@ -141,10 +139,10 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
         <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-500 ease-in-out group-hover:bg-black/60">
           <div className="transform text-center opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-100 scale-95">
             <h3 className="text-xl font-semibold text-white mb-2">
-              {t('moreVFXProjects')}
+              Más proyectos VFX
             </h3>
             <p className="text-sm text-white/80">
-              {t('viewPortfolio')}
+              Ver porfolio
             </p>
           </div>
         </div>
@@ -154,7 +152,7 @@ export default function YouTubePlayer({ videoId }: YouTubePlayerProps) {
         <button
           onClick={handleMuteToggle}
           className="flex items-center justify-center rounded-lg p-1.5 text-neutral-600 transition-colors hover:bg-neutral-200 hover:text-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-200"
-          title={isMuted ? t('unmute') : t('mute')}
+          title="Silenciado"
         >
           {isMuted ? (
             <VolumeX className="h-4 w-4" />

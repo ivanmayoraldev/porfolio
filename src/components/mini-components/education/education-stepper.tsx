@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useLanguage } from "@/components/mini-components/lang/LanguageContext";
-import { translations } from "@/components/mini-components/lang/translations";
 import { Github, ScreenShare, BookOpen, Award } from "lucide-react";
 
 interface Project {
@@ -12,81 +10,88 @@ interface Project {
   githubLink?: string;
 }
 
+interface Step {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  time: string;
+  icon: string;
+  details: string[];
+  projects: Project[];
+}
+
 const EducationStepper = () => {
-  const { language } = useLanguage();
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
 
   const getTranslation = (path: string) => {
     const keys = path.split('.');
-    let value: any = translations[language];
+    let value: any = null;
     for (const key of keys) {
       value = value?.[key];
     }
     return value || path;
   };
 
-  const steps = [
+  const steps: Step[] = [
     {
       id: 1,
-      title: getTranslation('educationStepper.selfStudy'),
-      description: getTranslation('educationStepper.selfStudyDesc'),
-      status: "completed",
-      time: "2022-2023",
+      title: "Aprendizaje Autodidacta",
+      description: "Diseño Web, VFX y Programación básica",
+      status: "Completado",
+      time: "Agosto 2021 - Septiembre 2023",
       icon: "🎨",
-      details: getTranslation('educationStepper.selfStudyDetails'),
-      projects: [
-        {
-          title: getTranslation('educationStepper.selfStudyProjects.peereira7.title'),
-          description: getTranslation('educationStepper.selfStudyProjects.peereira7.description'),
-          technologies: ["Premiere Pro", "After Effects", "Photoshop"],
-          image: "Peereira7.png",
-          link: "https://www.youtube.com/@Peereira7"
-        }
-      ] as Project[]
+      details: [
+        "Aprendizaje en plataformas como YouTube y Udemy",
+        "Diseño con herramientas como Photoshop y After Effects",
+        "Desarrollo con HTML, CSS y JavaScript",
+      ],
+      projects: [],
     },
     {
       id: 2,
-      title: getTranslation('educationStepper.daw'),
-      description: getTranslation('educationStepper.dawDesc'),
-      status: "completed",
-      time: "2023-2025",
+      title: "Desarrollo de Aplicaciones Web",
+      description: "Desarrollo Entorno Cliente/Servidor, Diseño de Interfaces y Despliegue de Aplicaciones Web",
+      status: "Completado",
+      time: "Septiembre 2023 - Junio 2025",
       icon: "💻",
-      details: getTranslation('educationStepper.dawDetails'),
+      details: [
+        "Desarrollo con React y TypeScript",
+        "Back-End con Node.js y Express",
+        "Bases de datos relacionales",
+      ],
       projects: [
         {
-          title: getTranslation('educationStepper.dawProjects.taberna.title'),
-          description: getTranslation('educationStepper.dawProjects.taberna.description'),
-          technologies: ["Astro", "React", "TailwindCSS"],
-          image: "taberna-el-rinconcillo.png",
-          githubLink: "https://github.com/ivanmayoraldev/landingpage-tabernaelrinconcillo",
-          link: "https://www.tabernaelrinconcillo.com/"
+          title: "Earn Control",
+          description: "App para ayudar a los usuarios a ahorrar automáticamente",
+          technologies: ["React", "TypeScript", "TailwindCSS", "NodeJS"],
+          image: "ArtUs.png",
+          githubLink: "https://github.com/ivanmayoraldev/EarnControl",
+          link: "https://project2-example.com"
         }
-      ] as Project[]
+      ]
     },
     {
       id: 3,
-      title: getTranslation('educationStepper.engineering'),
-      description: getTranslation('educationStepper.engineeringDesc'),
-      status: "in process",
-      time: "2026",
+      title: "Desarrollo de Aplicaciones Multiplataforma",
+      description: "Programación Orientada a Objetos, Base de Datos, Acceso a Datos, Programación de Servicios y Procesos, Móviles y Desarrollo de Interfaces",
+      status: "En proceso",
+      time: "Septiembre 2025 - Actualmente",
       icon: "🚀",
-      details: getTranslation('educationStepper.engineeringDetails'),
-      projects: [
-        {
-          title: getTranslation('educationStepper.engineeringProjects.development.title'),
-          description: getTranslation('educationStepper.engineeringProjects.development.description'),
-          technologies: ["JavaScript", "TypeScript", "TailwindCSS", "Figma"],
-          image: "placeholder.svg"
-        }
-      ] as Project[]
+      details: [
+        "Programación con Kotlin y Java",
+        "Uso de bases de datos locales y remotas",
+        "Interfaces adaptables multiplataforma",
+      ],
+      projects: []
     }
   ];
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'completed': return getTranslation('educationStepper.completed');
-      case 'in process': return getTranslation('educationStepper.inProgress');
-      default: return getTranslation('educationStepper.pending');
+      case 'Completado': return "Completado";
+      case 'En proceso': return "En proceso";
+      default: return "Pendiente";
     }
   };
 
@@ -104,16 +109,15 @@ const EducationStepper = () => {
                 className="flex relative p-3 sm:p-4 lg:p-6 cursor-pointer hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 transition-colors rounded-lg"
                 onClick={() => toggleStep(step.id)}
               >
-                {/* Círculo del paso con línea atravesándolo */}
                 <div className="relative mr-3 sm:mr-4 z-20 flex-shrink-0">
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${
-                    step.status === 'completed' 
+                    step.status === 'Completado' 
                       ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-lg' 
-                      : step.status === 'in process'
+                      : step.status === 'En proceso'
                       ? 'border-2 border-slate-900 dark:border-slate-100 text-slate-900 dark:text-slate-100'
                       : 'border-2 border-neutral-300 dark:border-neutral-600 text-neutral-400 dark:text-neutral-500'
                   } ${index === 2 ? 'bg-white dark:bg-neutral-800' : ''}`}>
-                    {step.status === 'completed' ? (
+                    {step.status === 'Completado' ? (
                       <span className="text-sm sm:text-lg">✓</span>
                     ) : (
                       <span className="text-sm sm:text-lg">{step.icon}</span>
@@ -121,31 +125,17 @@ const EducationStepper = () => {
                   </div>
                 </div>
 
-                {/* Contenido del paso */}
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold mb-1 text-sm sm:text-base ${
-                    step.status === 'completed' || step.status === 'in process'
-                      ? 'text-neutral-800 dark:text-neutral-300'
-                      : 'text-neutral-400 dark:text-neutral-500'
-                  }`}>
+                  <h3 className="font-semibold mb-1 text-sm sm:text-base text-neutral-800 dark:text-neutral-300">
                     {step.title}
                   </h3>
-                  
                   <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-2 leading-relaxed">
                     {step.description}
                   </p>
-                  
                   <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-                    <span className={`text-xs inline-block px-2 py-1 rounded-full ${
-                      step.status === 'completed'
-                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                        : step.status === 'in process'
-                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
-                        : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400'
-                    }`}>
+                    <span className="text-xs inline-block px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400">
                       {getStatusText(step.status)}
                     </span>
-                    
                     <p className="text-xs text-neutral-500 dark:text-neutral-500">
                       {step.time}
                     </p>
@@ -153,11 +143,9 @@ const EducationStepper = () => {
                 </div>
               </div>
 
-              {/* Contenido expandible */}
               {expandedStep === step.id && (
                 <div className="ml-11 sm:ml-14 mb-4 sm:mb-6">
                   <div className="bg-neutral-50 dark:bg-neutral-700/30 rounded-lg p-3 sm:p-4 lg:p-6">
-                    {/* Botones de acción para DAW e Ingeniería */}
                     {(step.id === 2 || step.id === 3) && (
                       <div className="mb-4 sm:mb-6">
                         <div className="flex gap-2 flex-wrap">
@@ -188,7 +176,7 @@ const EducationStepper = () => {
                         {getTranslation('educationStepper.studiesCompleted')}
                       </h4>
                       <ul className="space-y-1 sm:space-y-2">
-                        {step.details.map((detail: string, idx: number) => (
+                        {step.details.map((detail, idx) => (
                           <li key={idx} className="flex items-start group">
                             <span className="text-orange-500 mr-2 sm:mr-3 mt-1 text-xs sm:text-sm group-hover:scale-110 transition-transform flex-shrink-0">•</span>
                             <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{detail}</span>
@@ -197,65 +185,45 @@ const EducationStepper = () => {
                       </ul>
                     </div>
 
-                    <div>
-                      <h4 className="font-medium text-neutral-800 dark:text-neutral-300 mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide">
-                        {getTranslation('educationStepper.projectsCompleted')}
-                      </h4>
-                      <div className="grid gap-3 sm:gap-4 grid-cols-1">
-                        {step.projects.map((project, idx) => (
-                          <div key={idx} className="flex flex-col gap-2 sm:gap-3 lg:gap-4 rounded-xl p-2 sm:p-3 lg:p-4 duration-100 hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-600 bg-white dark:bg-neutral-800">
-                            <div className="flex flex-col">
-                              <h5 className="text-sm sm:text-base lg:text-lg font-semibold text-neutral-800 dark:text-neutral-300 py-1 sm:py-2">
-                                {project.title}
-                              </h5>
-                              <p className="mb-1 sm:mb-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 py-1 sm:py-2 leading-relaxed">
-                                {project.description}
-                              </p>
-                              <div className="mb-1 sm:mb-2 flex gap-1 py-1 sm:py-2 flex-wrap">
-                                {project.technologies.map((tech, techIdx) => (
-                                  <span
-                                    key={techIdx}
-                                    className="flex items-center gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-700 px-1.5 sm:px-2 lg:px-2.5 py-0.5 text-xs text-neutral-600 dark:text-neutral-400 border border-neutral-300 dark:border-neutral-600"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
+                    {step.projects.length > 0 && (
+                      <div>
+                        <h4 className="font-medium text-neutral-800 dark:text-neutral-300 mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide">
+                          {getTranslation('educationStepper.projectsCompleted')}
+                        </h4>
+                        <div className="grid gap-3 sm:gap-4 grid-cols-1">
+                          {step.projects.map((project, idx) => (
+                            <div key={idx} className="flex flex-col gap-2 sm:gap-3 lg:gap-4 rounded-xl p-2 sm:p-3 lg:p-4 hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-600">
+                              <div>
+                                <h5 className="text-sm sm:text-base lg:text-lg font-semibold text-neutral-800 dark:text-neutral-300 py-1 sm:py-2">{project.title}</h5>
+                                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 py-1 sm:py-2 leading-relaxed">{project.description}</p>
+                                <div className="flex gap-1 py-1 flex-wrap">
+                                  {project.technologies.map((tech, i) => (
+                                    <span key={i} className="text-xs px-2 py-0.5 rounded bg-neutral-200 dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400">
+                                      {tech}
+                                    </span>
+                                  ))}
+                                </div>
+                                <div className="relative h-24 sm:h-32 lg:h-40 w-full mt-2 rounded-xl overflow-hidden">
+                                  <img src={`/${project.image}`} alt={project.title} className="w-full h-full object-cover object-top rounded-xl" />
+                                </div>
                               </div>
-                              <div className="relative h-24 sm:h-32 lg:h-40 w-full overflow-hidden rounded-xl">
-                                <img
-                                  className="rounded-xl object-cover object-top w-full h-full"
-                                  src={`/${project.image}`}
-                                  alt={`${project.title} image`}
-                                />
+                              <div className="mt-1 flex gap-2">
+                                {project.githubLink && (
+                                  <a href={project.githubLink} target="_blank" className="grow flex items-center justify-center p-2 rounded-xl bg-neutral-300/60 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-600 opacity-80 hover:opacity-100 transition">
+                                    <Github className="size-4" />
+                                  </a>
+                                )}
+                                {project.link && (
+                                  <a href={project.link} target="_blank" className="grow flex items-center justify-center p-2 rounded-xl bg-neutral-300/60 dark:bg-neutral-700 border border-neutral-400 dark:border-neutral-600 opacity-80 hover:opacity-100 transition">
+                                    <ScreenShare className="size-4" />
+                                  </a>
+                                )}
                               </div>
                             </div>
-                            
-                            <div className="mt-1 flex gap-2">
-                              {project.githubLink && (
-                                <a
-                                  href={project.githubLink}
-                                  className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
-                                  target="_blank"
-                                  aria-label="Link to Github repository"
-                                >
-                                  <Github className="size-3 sm:size-4" />
-                                </a>
-                              )}
-                              {project.link && (
-                                <a
-                                  href={project.link}
-                                  className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
-                                  target="_blank"
-                                  aria-label="Link to live preview"
-                                >
-                                  <ScreenShare className="size-3 sm:size-4" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -267,4 +235,4 @@ const EducationStepper = () => {
   );
 };
 
-export default EducationStepper; 
+export default EducationStepper;

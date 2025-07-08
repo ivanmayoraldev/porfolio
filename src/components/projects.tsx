@@ -1,70 +1,116 @@
-import { useState } from "react";
-import Card from "@/components/mini-components/ui/card";
-import TabSelector from "./mini-components/projects/tab-selector";
-import ProjectItem from "./mini-components/projects/project-item";
-import ActionButton from "./mini-components/projects/action-button";
+import { Github, ScreenShare, MoveRight } from "lucide-react";
 
 export default function Projects() {
-  const [activeTab, setActiveTab] = useState<'web' | 'design'>('web');
-
   const webProjects = [
     {
-      key: "project1",
-      title: "Proyeto1 (en desarrollo)",
-      description: "Trabajando en un proyecto",
-      technologies: ["JavaScript", "TypeScript", "TailwindCSS", "Figma"],
-      video: "placeholder.svg",
-      githubLink: "",
-      previewLink: "",
-    },
-    {
-      key: "tabernaElRinconcillo",
-      title: "Taberna El Rinconcillo - Landing Page",
-      description: "He diseñado y desarrollado la landing page de la taberna El Rinconcillo, una taberna de comida típica española situado en Gérgal, Almería.",
-      technologies: ["Astro", "React", "TailwindCSS"],
-      video: "taberna-el-rinconcillo.png",
+      key: "TabernaElRinconcillo",
+      title: "Taberna El Rinconcillo",
+      technologies: ["Astro", "React", "TypeScript", "Tailwind CSS"],
+      img: "taberna-el-rinconcillo.png",
       githubLink: "https://github.com/ivanmayoraldev/landingpage-tabernaelrinconcillo",
-      previewLink: "https://www.tabernaelrinconcillo.com/",
-    },
-  ];
-
-  const designProjects = [
-    {
-      key: "project2",
-      title: "Proyecto2 (en desarrollo)",
-      description: "Trabajando en un proyecto",
-      technologies: ["Premiere Pro", "Davinci Resolve", "Google Ads"],
-      video: "placeholder.svg",
-      previewLink: "",
+      previewLink: "https://tabernaelrinconcillo.com",
     },
     {
-      key: "peereira7",
-      title: "Peereira7",
-      description: "Video editing, banner and thumbnail design. Social media management for 3 years in Youtube & TikTok.",
-      technologies: ["Premiere Pro", "After Effects", "Photoshop"],
-      video: "Peereira7.png",
-      previewLink: "https://www.youtube.com/@Peereira7",
+      key: "EarnControl",
+      title: "Earn Control",
+      technologies: ["React", "TypeScript", "NodeJS", "TailwindCSS"],
+      img: "ArtUs.png",
+      githubLink: "https://github.com/ivanmayoraldev/EarnControl",
+      previewLink: "https://project2-example.com",
     },
   ];
 
   return (
-    <Card>
-      <TabSelector activeTab={activeTab} setActiveTab={setActiveTab} />
-      
-      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
-        {activeTab === 'web' 
-          ? webProjects.map((project) => {
-              const { key, ...projectProps } = project;
-              return <ProjectItem key={project.title} projectKey={key} {...projectProps} />;
-            })
-          : designProjects.map((project) => {
-              const { key, ...projectProps } = project;
-              return <ProjectItem key={project.title} projectKey={key} {...projectProps} />;
-            })
-        }
+    <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {webProjects.map((project) => {
+        const displayTitle = project.title;
+        return (
+          <ProjectItem
+            key={project.key}
+            title={displayTitle}
+            technologies={project.technologies}
+            img={project.img}
+            githubLink={project.githubLink}
+            previewLink={project.previewLink}
+          />
+        );
+      })}
+    </section>
+  );
+}
+
+function ProjectItem({
+  title,
+  technologies,
+  img,
+  githubLink,
+  previewLink,
+}: {
+  title: string;
+  technologies: string[];
+  img: string;
+  githubLink?: string;
+  previewLink?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-3 sm:gap-4 rounded-xl p-3 sm:p-4 duration-100 hover:bg-neutral-300/20 dark:hover:bg-neutral-800/20 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-600">
+      <div className="flex flex-col">
+        <h3 className="text-base sm:text-lg font-semibold text-neutral-800 dark:text-neutral-300 py-2">
+          {title}
+        </h3>
+        <div className="mb-2 flex gap-1 py-2 flex-wrap">
+          {technologies.map((tech) => (
+            <span
+              key={tech}
+              className="flex items-center gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-700 px-2 sm:px-2.5 py-0.5 text-xs text-neutral-600 dark:text-neutral-400 border border-neutral-300 dark:border-neutral-600"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="relative h-32 sm:h-40 w-full">
+          <img
+            className="rounded-xl object-cover object-top w-full h-full"
+            src={img}
+            alt={`${title} image`}
+          />
+        </div>
       </div>
 
-      <ActionButton activeTab={activeTab} />
-    </Card>
+      <div className="mt-1 flex gap-2">
+        {githubLink && (
+          <a
+            href={githubLink}
+            className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
+            target="_blank"
+            aria-label="Link to Github repository"
+          >
+            <Github className="size-4" />
+          </a>
+        )}
+        {previewLink && (
+          <a
+            href={previewLink}
+            className="inline-flex grow items-center justify-center rounded-xl bg-neutral-300/60 dark:bg-neutral-700 p-2 opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-400 dark:border-neutral-600"
+            target="_blank"
+            aria-label="Link to live preview"
+          >
+            <ScreenShare className="size-4" />
+          </a>
+        )}
+      </div>
+      <div className="flex w-full justify-center mt-6 sm:mt-8">
+      <a
+        href="https://github.com/ivanmayoraldev"
+        target="_blank"
+        className="group flex w-full items-center justify-center rounded-xl bg-neutral-200 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium opacity-80 transition-opacity duration-150 hover:opacity-100 border border-neutral-300 dark:border-neutral-600"
+        aria-label="Explore more web projects"
+      >
+        Más Proyectos Web
+        <MoveRight className="size-4 opacity-70 duration-200 group-hover:translate-x-[1.5px] group-hover:opacity-100 ml-2" />
+      </a>
+
+    </div>
+    </div>
   );
-} 
+}
